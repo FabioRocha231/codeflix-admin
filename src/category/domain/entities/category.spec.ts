@@ -1,5 +1,6 @@
 import { Category } from './category'
 import { omit } from 'lodash'
+
 describe('Category Unity Tests', () => {
   test('constructor of category', () => {
     let category = new Category({
