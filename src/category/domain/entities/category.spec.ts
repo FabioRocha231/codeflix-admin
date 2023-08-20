@@ -13,12 +13,13 @@ describe('Category Unity Tests', () => {
     })
     expect(category.props.created_at).toBeInstanceOf(Date)
 
+    let created_at = new Date()
     category = new Category({
       name: 'Movie',
       description: 'Movie description',
       is_active: false,
+      created_at,
     })
-    let created_at = new Date()
     expect(category.props).toStrictEqual({
       name: 'Movie',
       description: 'Movie description',
@@ -46,18 +47,82 @@ describe('Category Unity Tests', () => {
     })
   })
 
-  test('category getters', () => {
-    const mock_created_at = new Date()
+  test('getter of name field', () => {
     const category = new Category({
       name: 'Movie',
-      is_active: true,
-      description: 'Movie description',
-      created_at: mock_created_at,
     })
-
     expect(category.name).toBe('Movie')
+  })
+
+  test('getter and setter of description field', () => {
+    let category = new Category({
+      name: 'Movie',
+    })
+    expect(category.description).toBeNull()
+
+    category = new Category({
+      name: 'Movie',
+      description: 'Movie description',
+    })
     expect(category.description).toBe('Movie description')
-    expect(category.is_active).toBe(true)
-    expect(category.created_at).toBe(mock_created_at)
+
+    category = new Category({
+      name: 'Movie',
+    })
+    category['description'] = 'Other description'
+    expect(category.description).toBe('Other description')
+
+    category = new Category({
+      name: 'Movie',
+    })
+    category['description'] = undefined
+    expect(category.description).toBeNull()
+
+    category = new Category({
+      name: 'Movie',
+    })
+    category['description'] = null
+    expect(category.description).toBeNull()
+  })
+
+  test('getter and setter of is_active field', () => {
+    let category = new Category({
+      name: 'Movie',
+    })
+    expect(category.is_active).toBeTruthy()
+
+    category = new Category({
+      name: 'Movie',
+      is_active: false,
+    })
+    expect(category.is_active).toBeFalsy()
+
+    category = new Category({
+      name: 'Movie',
+      is_active: false,
+    })
+    category['is_active'] = true
+    expect(category.is_active).toBeTruthy()
+
+    category = new Category({
+      name: 'Movie',
+      is_active: true,
+    })
+    category['is_active'] = false
+    expect(category.is_active).toBeFalsy()
+  })
+
+  test('getter of created_at field', () => {
+    let category = new Category({
+      name: 'Movie',
+    })
+    expect(category.created_at).toBeInstanceOf(Date)
+
+    const created_at = new Date()
+    category = new Category({
+      name: 'Movie',
+      created_at,
+    })
+    expect(category.created_at).toBe(created_at)
   })
 })
